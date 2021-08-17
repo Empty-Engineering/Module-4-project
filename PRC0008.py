@@ -31,8 +31,9 @@ def IS_REGISTERED(avatarName: str):
 def main():
     wouldLikeToCheckIfRegistered = input("Would you like to check if your avatar name is registered? \n")
     if wouldLikeToCheckIfRegistered.lower() == 'yes' or wouldLikeToCheckIfRegistered.lower() == 'y':
-        avatarName = str("'"+input("Enter avatar name. \n")+"'")
-        if IS_REGISTERED(avatarName) == True:
+        avatarName = input("Enter avatar name. \n")
+        matchName = str("'%s'" % avatarName)
+        if IS_REGISTERED(matchName) == True:
             print("You are already registered. ")
         else:
             print("You are not registered, would you like to register under that avatar name? ")
