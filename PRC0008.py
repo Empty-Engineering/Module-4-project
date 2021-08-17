@@ -20,16 +20,3 @@ def WRITE_PLAYER(avatarName, name):
     with open('battle_royale.csv', 'w', newline='') as csvfile:
         newWrite = csv.writer(csvfile, delimiter=',')
         newWrite.writerows(csv_list)
-
-def GET_COORDINATES(userDay, month):
-    f_in = 'battle_royale.csv'
-    data = []  # a container to hold the results
-    with open(f_in, 'r') as source:
-        battleRoyaleData = csv.reader(source, delimiter=',')
-        for row in battleRoyaleData:
-            row = [t for t in row] 
-            data.append(row)
-def main():
-    userOption = input("What would you like to do? ")
-if __name__ == '__main__':
-	main()
