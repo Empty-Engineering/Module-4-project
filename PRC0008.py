@@ -4,14 +4,12 @@ def GET_ROW_COUNT() -> int:
         battleRoyaleData = csv.reader(source, delimiter=',')
         row_count = sum(1 for row in battleRoyaleData)
     return row_count
-
-def DISPLAY_PLAYERS() -> tuple:
+def DISPLAY_PLAYERS() -> None:
     data = []
     with open('battle_royale.csv', 'r') as source:
         battleRoyaleData = csv.reader(source, delimiter=',')
         for row in battleRoyaleData:
             print(row)
-
 def WRITE_PLAYER(avatarName: str, name: str) -> None:
     csv_list = []
     rowCount = GET_ROW_COUNT()
@@ -23,7 +21,6 @@ def WRITE_PLAYER(avatarName: str, name: str) -> None:
     with open('battle_royale.csv', 'w', newline='') as csvfile:
         newWrite = csv.writer(csvfile, delimiter=',')
         newWrite.writerows(csv_list)
-
 def IS_REGISTERED(avatarName: str):
     csv_list = []
     with open('battle_royale.csv', 'r') as source:
@@ -31,12 +28,10 @@ def IS_REGISTERED(avatarName: str):
         for row in battleRoyaleData:
             csv_list.append(row)
         return any(avatarName in x for x in csv_list)
-           
-
 def main():
     wouldLikeToCheckIfRegistered = input("Would you like to check if your avatar name is registered? \n")
     if wouldLikeToCheckIfRegistered.lower() == 'yes' or wouldLikeToCheckIfRegistered.lower() == 'y':
-        avatarName = input("Enter avatar name. \n")
+        avatarName = str("'"+input("Enter avatar name. \n")+"'")
         if IS_REGISTERED(avatarName) == True:
             print("You are already registered. ")
         else:
@@ -60,7 +55,6 @@ def main():
                 exit()
             else:
                 exit()
-
 if __name__ == "__main__":
     main()
 else:
