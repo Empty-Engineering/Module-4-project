@@ -11,16 +11,22 @@ def DISPLAY_PLAYERS() -> None:
         for row in battleRoyaleData:
             print(row)
 def WRITE_PLAYER(avatarName: str, name: str) -> None:
-    csv_list = []
-    rowCount = GET_ROW_COUNT()
-    with open('battle_royale.csv', 'r') as source:
-        battleRoyaleData = csv.reader(source, delimiter=',')
-        for row in battleRoyaleData:
-            csv_list.append(row)
-        csv_list.append([f"'{avatarName}'", f"'{name}'", f"'{rowCount}'"])
-    with open('battle_royale.csv', 'w', newline='') as csvfile:
-        newWrite = csv.writer(csvfile, delimiter=',')
-        newWrite.writerows(csv_list)
+    if IS_REGISTERED(avatarName):
+        raise ValueError
+    try:
+        csv_list = []
+        rowCount = GET_ROW_COUNT()
+        with open('battle_royale.csv', 'r') as source:
+            battleRoyaleData = csv.reader(source, delimiter=',')
+            for row in battleRoyaleData:
+                csv_list.append(row)
+                csv_list.append([f"'{avatarName}'", f"'{name}'", f"'{rowCount}'"])
+        with open('battle_royale.csv', 'w', newline='') as csvfile:
+            newWrite = csv.writer(csvfile, delimiter=',')
+            newWrite.writerows(csv_list)
+    except ValueError:
+        print("A user with that Avatar Name is already registered, please try again later.\n")
+        exit()
 def IS_REGISTERED(avatarName: str):
     csv_list = []
     with open('battle_royale.csv', 'r') as source:
@@ -42,9 +48,10 @@ def main():
                 name = input("Enter your name.\n")
                 WRITE_PLAYER(avatarName, name)
     else:
-        wouldLikeList = input("Would you like a list of participants? ")
-        wantLikeList = lambda wouldLikeList : wouldLikeList.lower() == "y" or wouldLikeList.lower() == 'yes'
-        if wantLikeList:
+        wouldLikeList = input("Would you like a list of participants? \n")
+        wantLikeList = lambda wouldLikeList : (wouldLikeList.lower() == "y" or wouldLikeList.lower() == 'yes')
+        likeList = wantLikeList(wouldLikeList)
+        if likeList:
             DISPLAY_PLAYERS()
             exit()
         else:
